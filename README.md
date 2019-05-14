@@ -140,3 +140,6 @@ Quit the server with CONTROL-C.
 到这里我们已经计算好了`movies_movieinfo`表和`movies_moviesimilar`表，主页已经能显示。
 
 ## <p id=3>算法说明
+
+
+...
