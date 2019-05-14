@@ -135,7 +135,7 @@ Quit the server with CONTROL-C.
 
 本项目提供爬取的猫眼电影网站数据作为DEMO，共1000条，字段对应`movies_movieinfo`表，[点击这里](./movies_movieinfo_DEMO.sql)可以看到该SQL文件，复制到MySQL shell中即可插入数据。
 
-接着使用我们编写的`cal_similar_gry.py`文件计算电影相似度，存入`movies_moviesimilar`表。注意需要使用`pip3 install distance`安装依赖，并将MySQL账号密码的参数设置正确。
+接着使用我们编写的[`cal_similar_gry.py`](./cal_similar_gry.py)文件计算电影相似度，存入`movies_moviesimilar`表。注意需要使用`pip3 install distance`安装依赖，并将MySQL账号密码的参数设置正确。
 
 到这里我们已经计算好了`movies_movieinfo`表和`movies_moviesimilar`表，主页已经能显示。
 
