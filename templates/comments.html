@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block title %}{{ movieinfo.moviename }}{% endblock %}
+{% block bread %}<li><a href="#">Home>电影评论</a></li>{% endblock %}
+{% block content %}
+    <div class="w3_content_agilleinfo_inner">
+						<div class="agile_featured_movies">
+				            <div class="inner-agile-w3l-part-head">
+					            <h3 class="w3l-inner-h-title">{{ movieinfo.moviename }}</h3>
+								<p class="w3ls_head_para">{{ movieinfo.releasedate }}</p>
+							</div>
+							   <div class="latest-news-agile-info">
+								   <div class="col-md-8 latest-news-agile-left-content">
+											<div class="single video_agile_player">
+
+										            <div class="video-grid-single-page-agileits">
+														<div data-video="f2Z65fobH2I" id="video"> <img src="{{ movieinfo.backpost }}" alt="" class="img-responsive" style="width: 727px; height: 368px;"/> </div>
+													</div>
+													 <h4>{{ movieinfo.moviename }}| {{ movieinfo.directors }}| {{ movieinfo.leadactors }}</h4>
+										    </div>
+
+
+{#                              相似begin#}
+                                       {% if similar_movies %}
+                                         <h4 class="side-t-w3l-agile">SIMILAR <span>MOVIES</span></h4>
+                                       <div class="w3_agile_latest_movies">
+
+				<div id="owl-demo" class="owl-carousel owl-theme">
+                    {% for similarmovie in similar_movies %}
+                    <div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-slider ">
+							<a href="{% url 'movieinfo' similarmovie.id %}" class="hvr-sweep-to-bottom"><img src="{{ similarmovie.picture }}" title="Movies Pro" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="{%  url 'movieinfo' similarmovie.id %}">{{ similarmovie.moviename }}</a></h6>
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>{{ similarmovie.releasedate }}</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben one">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+                    {% endfor %}
+
+					   </div>
+				    </div>
+                                       {% else %}
+
+                                      {% endif %}
+{#                                   相似end#}
+                                   <div class="single-agile-shar-buttons">
+											    <h5 >简介 :</h5>
+                                   </div>
+										<div class="admin-text">
+												<h5>WRITTEN BY ADMIN</h5>
+												<div class="admin-text-left">
+													<a href="#"><img src="images/admin.jpg" alt=""></a>
+												</div>
+												<div class="admin-text-right">
+													<p>{{ movieinfo.description }}</p>
+													<span>View all posts by :<a href="#"> Admin </a></span>
+												</div>
+												<div class="clearfix"> </div>
+										</div>
+
+
+								   </div>
+								   <div class="col-md-4 latest-news-agile-right-content">
+{#                                       <h4 class="side-t-w3l-agile">RECOMMOND </h4><h3><span>MOVIE</span></h3>#}
+										<div class="video_agile_player sidebar-player">
+										            <div class="video-grid-single-page-agileits">
+														<div data-video="fNKUgX8PhMA" id="video1"> <img src="{{ recommend_movies.picture }}" alt="" class="img-responsive"></div>
+													</div>
+{#推荐begin#}
+{#										        <div class="player-text side-bar-info">#}
+{#												<p class="fexi_header">{{ recommend_movies.moviename }} </p>#}
+{#												<p class="fexi_header_para"><span class="conjuring_w3">Story Line<label>:</label></span>{{ recommend_movies.discription }}</p>#}
+{#												<p class="fexi_header_para"><span>Release On<label>:</label></span>Feb 3, 2016 </p>#}
+{#												<p class="fexi_header_para">#}
+{#													<span>Genres<label>:</label> </span>#}
+{#													<a href="genre.html">Drama</a> |#}
+{#													<a href="genre.html">Adventure</a> |#}
+{#													<a href="genre.html">Family</a>#}
+{#												</p>#}
+{#												<p class="fexi_header_para fexi_header_para1"><span>Star Rating<label>:</label></span>#}
+{#													<a href="#"><i class="fa fa-star" aria-hidden="true"></i></a>#}
+{#													<a href="#"><i class="fa fa-star" aria-hidden="true"></i></a>#}
+{#													<a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a>#}
+{#													<a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>#}
+{#													<a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>#}
+{#												</p>#}
+{#											</div>#}
+{#推荐end#}
+										    </div>
+											<div class="clearfix"> </div>
+											<div class="agile-info-recent">
+											<h4 class="side-t-w3l-agile">RECOMMAND <span>MOVIES</span></h4>
+											<div class="w3ls-recent-grids">
+                                              {% for recommand in recommend_movies  %}
+                                                  <div class="w3l-recent-grid">
+													<div class="wom">
+														<a href="{%  url 'movieinfo' recommand.id %}"><img src="{{ recommand.picture }}" alt=" " class="img-responsive"></a>
+													</div>
+													<div class="wom-right">
+														<h5><a href="{%  url 'movieinfo' recommand.id %}">{{ recommand.moviename }}</a></h5>
+														<p>{{ recommand.description }}</p>
+															<ul class="w3l-sider-list">
+																<li><i class="fa fa-clock-o" aria-hidden="true"></i>{{ recommand.releasedate }}</li>
+																<li><i class="fa fa-eye" aria-hidden="true"></i> 2602</li>
+															</ul>
+													</div>
+													<div class="clearfix"> </div>
+												</div>
+                                                {% endfor %}
+
+											</div>
+										</div>
+
+							       </div>
+								   <div class="clearfix"></div>
+							   </div>
+
+						</div>
+				</div>
+{% endblock %}

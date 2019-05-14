@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Thu May 09 20:16:55 CST 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-016a-9c86-6785-00000f22ad50 
+on database directory /root/jupyternotebook/MovieSizer-03/apps/metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@47946acb 
+Loaded from file:/opt/spark-2.4.1/jars/derby-10.12.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_201-b09
+user.dir=/root/jupyternotebook/MovieSizer-03/apps
+os.name=Linux
+os.arch=amd64
+os.version=4.15.0-29-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
