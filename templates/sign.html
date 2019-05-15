@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head>
+<title>登录失败</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+<script type="text/javascript" src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
+<link href="http://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900" rel="stylesheet">
+<style>
+    body{
+        background-color: #9D9D9D;
+        text-align: center;
+    }
+    div{
+        height: 100%;
+        width: 100%;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+    {% block content %}
+<div>
+    <script type="text/javascript">
+//         var msg = '登陆错误';
+        window.onload = function(){
+//             msg = {{ msg }};
+            alert("用户名或密码错误");
+            window.location.href = 'http://localhost:8000/';
+        }
+    </script>
+</div>
+    {% endblock %}
+</body>
+</html>

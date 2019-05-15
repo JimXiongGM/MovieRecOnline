@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% block title %}{{ movieinfo.moviename }}{% endblock %}
+{% block bread %}<li><a href="{% url 'index' %}">Home</a> > 电影详情</li>{% endblock %}
+{% block content %}
+    <script type="text/javascript">    
+    window.onload = function(){
+        rating_star = {{ rating_star }};
+        var img1 = document.getElementsByClassName("star1")[0];
+        var img2 = document.getElementsByClassName("star2")[0];
+        var img3 = document.getElementsByClassName("star3")[0];
+        var img4 = document.getElementsByClassName("star4")[0];
+        var img5 = document.getElementsByClassName("star5")[0];
+        if(rating_star != "0"){
+            //not allow to change comment
+            //onclick
+            img1.setAttribute("onclick","comment_alert()");
+            img2.setAttribute("onclick","comment_alert()");
+            img3.setAttribute("onclick","comment_alert()");
+            img4.setAttribute("onclick","comment_alert()");
+            img5.setAttribute("onclick","comment_alert()");
+            //onmousemove
+            img1.setAttribute("onmousemove","");
+            img2.setAttribute("onmousemove","");
+            img3.setAttribute("onmousemove","");
+            img4.setAttribute("onmousemove","");
+            img5.setAttribute("onmousemove","");
+            //onmouseout
+            img1.setAttribute("onmouseout","");
+            img2.setAttribute("onmouseout","");
+            img3.setAttribute("onmouseout","");
+            img4.setAttribute("onmouseout","");
+            img5.setAttribute("onmouseout","");
+            //show user's stars
+            unhover();
+        }else{
+            rating_star = "0";
+        }
+    }
+    </script>
+    <div class="w3_content_agilleinfo_inner">
+						<div class="agile_featured_movies">
+				            <div class="inner-agile-w3l-part-head">
+					            <h3 class="w3l-inner-h-title">{{ movieinfo.moviename }}</h3>
+								<p class="w3ls_head_para">{{ movieinfo.releasedate }}</p>
+							</div>
+							   <div class="latest-news-agile-info">
+								   <div class="col-md-8 latest-news-agile-left-content">
+											<div class="single video_agile_player">
+
+										            <div class="video-grid-single-page-agileits">
+														<div data-video="f2Z65fobH2I" id="video" align="center"> <img src="{{ movieinfo.backpost }}" class="img-responsive"/> </div>
+													</div>
+													 <div>
+	<h4 class="movie-about">{{ movieinfo.moviename }}| {{ movieinfo.directors }}| {{ movieinfo.leadactors }}</h4>
+	<span class="stars" data-solid="https://img3.doubanio.com/f/shire/5a2327c04c0c231bced131ddf3f4467eb80c1c86/pics/rating_icons/star_onmouseover.png" data-hollow="https://img3.doubanio.com/f/shire/2520c01967207a1735171056ec588c8c1257e5f8/pics/rating_icons/star_hollow_hover.png" data-solid-2x="https://img3.doubanio.com/f/shire/7258904022439076d57303c3b06ad195bf1dc41a/pics/rating_icons/star_onmouseover@2x.png" data-hollow-2x="https://img3.doubanio.com/f/shire/95cc2fa733221bb8edd28ad56a7145a5ad33383e/pics/rating_icons/star_hollow_hover@2x.png">
+        <div>评分：</div>
+        <img onmousemove="hover(this)" onmouseout="unhover()" onclick="cl(this)" src="https://img3.doubanio.com/f/shire/2520c01967207a1735171056ec588c8c1257e5f8/pics/rating_icons/star_hollow_hover.png" class="star1" width="16" height="16"/>
+        <img onmousemove="hover(this)" onmouseout="unhover()" onclick="cl(this)" src="https://img3.doubanio.com/f/shire/2520c01967207a1735171056ec588c8c1257e5f8/pics/rating_icons/star_hollow_hover.png" class="star2" width="16" height="16"/>
+        <img onmousemove="hover(this)" onmouseout="unhover()" onclick="cl(this)" src="https://img3.doubanio.com/f/shire/2520c01967207a1735171056ec588c8c1257e5f8/pics/rating_icons/star_hollow_hover.png" class="star3" width="16" height="16"/>
+        <img onmousemove="hover(this)" onmouseout="unhover()" onclick="cl(this)" src="https://img3.doubanio.com/f/shire/2520c01967207a1735171056ec588c8c1257e5f8/pics/rating_icons/star_hollow_hover.png" class="star4" width="16" height="16"/>
+        <img onmousemove="hover(this)" onmouseout="unhover()" onclick="cl(this)" src="https://img3.doubanio.com/f/shire/2520c01967207a1735171056ec588c8c1257e5f8/pics/rating_icons/star_hollow_hover.png" class="star5" width="16" height="16"/>
+ </span>
+</div>
+										    </div>
+
+
+{#相似begin#}
+<!--xgm>
+type(similar_movies) :  <class 'list'>
+<!-->
+{% if similar_movies %}
+<h4 class="side-t-w3l-agile">SIMILAR
+
+  <span>MOVIES</span></h4>
+<div class="w3_agile_latest_movies">
+  <div id="owl-demo" class="owl-carousel owl-theme">
+
+      
+{% for similarmovie in similar_movies %}
+    <div class="item">
+      <a href="{% url 'movieinfo' similarmovie.id %}" class="hvr-sweep-to-bottom">
+        <div class="img_limit_simliar">
+          <img src="{{ similarmovie.picture }}" title="SimMovies Pro" class="img-responsive-simliar" alt=" " /></div></a>
+      <div class="mid-1 agileits_w3layouts_mid_1_home simliar_mid">
+        <div class="w3l-movie-text">
+          <h6>
+            <a href="{%  url 'movieinfo' similarmovie.id %}">{{ similarmovie.moviename }}</a></h6>
+        </div>
+        <div class="mid-2 agile_mid_2_home">
+          <!-- <p>{{ similarmovie.releasedate }}</p> -->
+          <div class="rat2_sim">{{similarmovie.averating}}分</div>
+          <div class="rat_sim"></div>
+          <script>
+            var rating = document.getElementsByClassName("rat_sim");
+            var src = "rating00";
+            if(parseFloat({{similarmovie.averating}})>0.0&&parseFloat({{similarmovie.averating}})<1.0){
+            src = "rating05";
+            }else if(parseFloat({{similarmovie.averating}})>1.0&&parseFloat({{similarmovie.averating}})<2.0){
+            src = "rating15";
+            }else if(parseFloat({{similarmovie.averating}})>2.0&&parseFloat({{similarmovie.averating}})<3.0){
+            src = "rating25";
+            }else if(parseFloat({{similarmovie.averating}})>3.0&&parseFloat({{similarmovie.averating}})<4.0){
+            src = "rating35";
+            }else if(parseFloat({{similarmovie.averating}})>4.0&&parseFloat({{similarmovie.averating}})<5.0){
+            src = "rating45";
+            }else{
+            src = "rating"+parseInt({{similarmovie.averating}}).toString()+"0";
+            }
+            rating[rating.length-1].setAttribute("id",src);
+          </script>
+          <div class="rat_sim"></div>
+          <div class="clearfix"></div>
+        </div>
+        <p>{{ similarmovie.releasedate }}</p>
+      </div>
+      <!-- <div class="ribben one">
+      <p>NEW</p>
+      </div> -->
+    </div>
+{% endfor %}</div>
+</div>
+{% else %}
+{% endif %}
+{#相似end#}
+                       <br>
+                       <div class="single-agile-shar-buttons">
+                            <h5>简介 :</h5>
+                       </div>
+										<div class="admin-text">
+												<!-- h5>WRITTEN BY ADMIN</h5 !-->
+<!-- 												<div class="admin-text-right"> -->
+													<p>{{ movieinfo.description }}</p>
+													<!--span>View all posts by :<a href="#"> Admin </a></span!-->
+<!-- 												</div> -->
+												<div class="clearfix"> </div>
+										</div>
+{#评论信息begin#}
+<html>
+ <head></head>
+ <body>
+  <div class="response"> 
+   <h4>用户评论</h4> {% for user_comments in all_comments %} 
+   <div class="media response-info"> 
+    <div class="media-left response-text-left"> 
+     <h5><a href="#">{{ user_comments.user.username }}</a></h5> 
+    </div> 
+    <div class="media-body response-text-right"> 
+     <p style="word-break:break-all" align="left">{{ user_comments.content }}</p> 
+     <ul> 
+      <li>{{ user_comments.reviewtime }}</li> 
+      <!-- li><i class="fa fa-reply" aria-hidden="true"></i> Reply</li !--> 
+     </ul> 
+    </div> 
+    <div class="clearfix"> 
+    </div> 
+   </div> {% endfor %} 
+  </div>
+ </body>
+</html>
+{#评论信息end#}
+{#评论提交begin#}
+                                   <div class="all-comments-info">
+												 <h5 >LEAVE A COMMENT</h5>
+												<div class="agile-info-wthree-box">
+													<form>
+													   <div class="col-md-10 form-info">
+
+														<textarea id="js-pl-textarea" placeholder="Message" ></textarea>
+														<input type="submit" value="SEND" id="js-pl-submit">
+													 </div>
+													 <div class="clearfix"> </div>
+
+
+													</form>
+												</div>
+											</div>
+{#评论提交end#}
+								   </div>
+
+								   <div class="col-md-4 latest-news-agile-right-content">
+{#                                       <h4 class="side-t-w3l-agile">RECOMMOND </h4><h3><span>MOVIE</span></h3>#}
+										<div class="video_agile_player sidebar-player">
+										            <div class="video-grid-single-page-agileits">
+														<div data-video="fNKUgX8PhMA" id="video1"> <img src="{{ recommend_movies.picture }}" alt="" class="img-responsive"></div>
+													</div>
+										    </div>
+											<div class="clearfix"> </div>
+											<div class="agile-info-recent">
+											<h4 class="side-t-w3l-agile">RECOMMAND <span>MOVIES</span></h4>
+                              <p><a href ="{% url 'movieinfo' movieinfo.id %}">刷新一下</a>
+											<div class="w3ls-recent-grids">
+
+
+<!--xgm>
+为什么要加.movie？因为movie是Top5Recommend的外键，连接到MovieInfo表
+recommend_movies来源于apps/movies/views.py的user_recommend_movies
+user_recommend_movies来源于from operation.views import recommendForUser
+最终来源于 user_recommend_movies = Top5Recommend.objects.filter(user_id=user.id) 
+
+type(user_recommend_movies) :  <class 'django.db.models.query.QuerySet'>
+<!-->
+{% for recommand in similar_movies  %}
+<div class="w3l-recent-grid">
+  <div class="wom">
+    <a href="{%  url 'movieinfo' recommand.id %}">
+      <img src="{{ recommand.picture }}" alt="暂无图片" class="img-responsive"></a>
+  </div>
+  <div class="wom-right">
+    <h5>
+      <a href="{%  url 'movieinfo' recommand.id %}">{{ recommand.moviename }}</a></h5>
+    <p class="length-limit">{{ recommand.description }}</p>
+    <ul class="w3l-sider-list">
+      <li>
+        <i class="fa fa-clock-o" aria-hidden="true"></i>{{ recommand.releasedate }}</li>
+      <!-- li><i class="fa fa-eye" aria-hidden="true"></i> 2602</li  !--></ul>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<br>
+{% endfor %}
+
+											</div>
+										</div>
+
+							       </div>
+								   <div class="clearfix"></div>
+							   </div>
+
+						</div>
+				</div>
+{% endblock %}
+

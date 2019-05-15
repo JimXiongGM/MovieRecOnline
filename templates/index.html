@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% block title %}首页{% endblock %}
+{% block bread %}<li><a href="{% url 'index'%}">Home</a></li>{% endblock %}
+{% block content %}
+<p><h2>推荐列表</h2><br>
+<h4 align="center"><a href ="{% url 'refresh' %}">刷新一下</a></h4>
+<br>
+
+{% for movie in commend_movie %}
+<div class="w3l-movie-gride-agile">
+    <a href="{% url 'movieinfo' movie.movie.id %}" class="hvr-sweep-to-bottom">
+        <div class="img_limit">
+            <img src="{{ movie.movie.picture }}" title="Movies Pro" class="img-responsive" alt=" ">
+        </div>
+    </a>
+    <div class="mid-1 agileits_w3layouts_mid_1_home">
+        <div class="w3l-movie-text">
+            <h6><a href="{% url 'movieinfo' movie.movie.id %}">{{ movie.movie.moviename }}</a></h6>
+        </div>
+    <div class="mid-2 agile_mid_2_home">
+    <p>{{ movie.movie.releasedate }}</p>
+    <div class="rat2">{{movie.movie.averating}}分</div>
+    <div class="rat"></div><script>
+        var rating = document.getElementsByClassName("rat");
+        var src;
+        if(parseFloat({{movie.movie.averating}})>0.0&&parseFloat({{movie.movie.averating}})<1.0){
+        src = "rating05";
+        }else if(parseFloat({{movie.movie.averating}})>1.0&&parseFloat({{movie.movie.averating}})<2.0){
+        src = "rating15";
+        }else if(parseFloat({{movie.movie.averating}})>2.0&&parseFloat({{movie.movie.averating}})<3.0){
+        src = "rating25";
+        }else if(parseFloat({{movie.movie.averating}})>3.0&&parseFloat({{movie.movie.averating}})<4.0){
+        src = "rating35";
+        }else if(parseFloat({{movie.movie.averating}})>4.0&&parseFloat({{movie.movie.averating}})<5.0){
+        src = "rating45";
+        }else{
+        src = "rating"+parseInt({{movie.movie.averating}}).toString()+"0";
+        }
+        rating[rating.length-1].setAttribute("id",src);
+        //alert(src);
+        </script>
+        <div class="rat"></div>
+        <div class="clearfix"></div>
+        </div>
+        </div>
+
+        <!--这是右上角的标签NEW，可以考虑新电影加上new>
+        <div class="ribben">
+        <p>NEW</p>
+        </div><! -->
+        </div>
+{% endfor %}
+<div><div><div><div>
+											 </div>
+											<div class="clearfix"> </div>
+										  </div>
+										  <div class="cleafix"></div>
+									</div>
+								</div>
+							<div class="tab2">
+								<div class="tab_movies_agileinfo">
+										<div class="w3_agile_featured_movies">
+											<div class="col-md-5 video_agile_player">
+										            <div class="video-grid-single-page-agileits">
+														
+													</div></div>
+
+{% endblock %}

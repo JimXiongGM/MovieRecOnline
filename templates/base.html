@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head>
+<title>{% block title %}comedy{% endblock %}</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link rel="stylesheet" type="text/css" media="all" href="{% static 'css/bootstrap.css' %}" />
+<!-- pop-up -->
+<link rel="stylesheet" type="text/css" media="all" href="{% static 'css/popuo-box.css' %}" />
+<!-- //pop-up -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/easy-responsive-tabs.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/zoomslider.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+<script type="text/javascript" src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
+<!--/web-fonts-->
+<link href='http://fonts.googleapis.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'>
+<link href="http://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!--//web-fonts-->
+<script type="text/javascript">
+var rating_star = "0";  //添加用户评分变量
+function comment_alert(){
+    alert("您已经为该电影进行过评分，不能重复评分");
+}
+function compare(){
+    var password = document.getElementById('password').value;
+    var confirm_password = document.getElementById('confirm_password').value;
+
+    if(password == confirm_password){
+        document.getElementsByClassName("submit_user")[0].removeAttribute('disabled');
+    }else{
+        alert("两次密码不一致");
+        document.getElementById('confirm_password').value = "";
+    }
+}
+
+function hover(star)
+{
+	var img = document.getElementsByClassName("stars")[0];
+	var img1 = document.getElementsByClassName("star1")[0];
+	var img2 = document.getElementsByClassName("star2")[0];
+	var img3 = document.getElementsByClassName("star3")[0];
+	var img4 = document.getElementsByClassName("star4")[0];
+	var img5 = document.getElementsByClassName("star5")[0];
+	var src = img.getAttribute("data-solid");
+	var src2 = img.getAttribute("data-hollow");
+	if(star == img1){
+		star.setAttribute("src",src);
+		img2.setAttribute("src",src2);
+		img3.setAttribute("src",src2);
+		img4.setAttribute("src",src2);
+		img5.setAttribute("src",src2);
+        star.setAttribute("title","差评");
+	}
+	if(star == img2){
+		img1.setAttribute("src",src);
+		star.setAttribute("src",src);
+		img3.setAttribute("src",src2);
+		img4.setAttribute("src",src2);
+		img5.setAttribute("src",src2);
+        star.setAttribute("title","一般");
+	}
+	if(star == img3){
+		img1.setAttribute("src",src);
+		img2.setAttribute("src",src);
+		star.setAttribute("src",src);
+		img4.setAttribute("src",src2);
+		img5.setAttribute("src",src2);
+        star.setAttribute("title","还行");
+	}
+	if(star == img4){
+		img1.setAttribute("src",src);
+		img2.setAttribute("src",src);
+		img3.setAttribute("src",src);
+		star.setAttribute("src",src);
+		img5.setAttribute("src",src2);
+        star.setAttribute("title","推荐");
+	}
+	if(star == img5){
+		img1.setAttribute("src",src);
+		img2.setAttribute("src",src);
+		img3.setAttribute("src",src);
+		img4.setAttribute("src",src);
+		star.setAttribute("src",src);
+        star.setAttribute("title","力荐");
+	}
+}
+
+function unhover()
+{
+	var img = document.getElementsByClassName("stars")[0];
+	var img1 = document.getElementsByClassName("star1")[0];
+	var img2 = document.getElementsByClassName("star2")[0];
+	var img3 = document.getElementsByClassName("star3")[0];
+	var img4 = document.getElementsByClassName("star4")[0];
+	var img5 = document.getElementsByClassName("star5")[0];
+	var src = img.getAttribute("data-solid");
+    var src2 = img.getAttribute("data-hollow");
+//     alert(rating_star);
+    if(rating_star == "0"){
+		img1.setAttribute("src",src2);
+        img2.setAttribute("src",src2);
+        img3.setAttribute("src",src2);
+        img4.setAttribute("src",src2);
+        img5.setAttribute("src",src2);
+	}
+    if(rating_star == "1"){
+		img1.setAttribute("src",src);
+		img2.setAttribute("src",src2);
+		img3.setAttribute("src",src2);
+		img4.setAttribute("src",src2);
+		img5.setAttribute("src",src2);
+	}
+	if(rating_star == "2"){
+		img1.setAttribute("src",src);
+		img2.setAttribute("src",src);
+		img3.setAttribute("src",src2);
+		img4.setAttribute("src",src2);
+		img5.setAttribute("src",src2);
+	}
+	if(rating_star == "3"){
+		img1.setAttribute("src",src);
+		img2.setAttribute("src",src);
+		img3.setAttribute("src",src);
+		img4.setAttribute("src",src2);
+		img5.setAttribute("src",src2);
+	}
+	if(rating_star == "4"){
+		img1.setAttribute("src",src);
+		img2.setAttribute("src",src);
+		img3.setAttribute("src",src);
+		img4.setAttribute("src",src);
+		img5.setAttribute("src",src2);
+	}
+	if(rating_star == "5"){
+		img1.setAttribute("src",src);
+		img2.setAttribute("src",src);
+		img3.setAttribute("src",src);
+		img4.setAttribute("src",src);
+		img5.setAttribute("src",src);
+	}
+}
+
+function cl(star)
+{
+	var alt = star.getAttribute("class");
+    rating_star = alt.slice(-1);
+}
+</script>
+<style>
+    .rat{
+        float: right;
+        display: block；
+    }
+    .rat2{
+        float: right;
+    }
+    .rat_sim{
+        float: left;
+        display: block；
+    }
+    .rat2_sim{
+        float: right;
+        font-size: 13px;
+    }
+    .w3_agile_latest_movies{
+        height: 700px;
+    }
+    .img_limit .img-responsive{
+        width: 160px;
+        height: 250px;
+    }
+    .img_limit_simliar .img-responsive-simliar{
+        width: 130px;
+        height: 200px;
+    }
+    .simliar_mid{
+        height: 110px;
+        display: block;
+    }
+    .item{
+        text-align: center;
+        margin-right: 0.5%;
+        margin-bottom: 1.5%;
+        position: relative;
+        padding-left: 0;
+        width: 19.5%;
+        height: 18%;
+        float: left;
+    }
+	#rating00{
+		width:100px;
+		height:15px;
+        background-image:url('https://img3.doubanio.com/f/shire/680a4bc4c384199245b080c7104da5be8ed717d3/pics/rating_icons/ic_rating_m.png');
+		background-repeat:no-repeat;
+/* 		background-attachment:fixed; */
+		background-position:0px -150px;
+	}
+	#rating05{
+		width:100px;
+		height:15px;
+		background-image:url('https://img3.doubanio.com/f/shire/680a4bc4c384199245b080c7104da5be8ed717d3/pics/rating_icons/ic_rating_m.png');
+		background-repeat:no-repeat;
+/* 		background-attachment:fixed; */
+		background-position:0px -135px;
+	}
+	#rating10{
+		width:100px;
+		height:15px;
+		background-image:url('https://img3.doubanio.com/f/shire/680a4bc4c384199245b080c7104da5be8ed717d3/pics/rating_icons/ic_rating_m.png');
+		background-repeat:no-repeat;
+/* 		background-attachment:fixed; */
+		background-position:0px -120px;
+	}
+	#rating15{
+		width:100px;
+		height:15px;
+		background-image:url('https://img3.doubanio.com/f/shire/680a4bc4c384199245b080c7104da5be8ed717d3/pics/rating_icons/ic_rating_m.png');
+		background-repeat:no-repeat;
+/* 		background-attachment:fixed; */
+		background-position:0px -105px;
+	}
+	#rating20{
+		width:100px;
+		height:15px;
+		background-image:url('https://img3.doubanio.com/f/shire/680a4bc4c384199245b080c7104da5be8ed717d3/pics/rating_icons/ic_rating_m.png');
+		background-repeat:no-repeat;
+/* 		background-attachment:fixed; */
+		background-position:0px -90px;
+	}
+	#rating25{
+		width:100px;
+		height:15px;
+		background-image:url('https://img3.doubanio.com/f/shire/680a4bc4c384199245b080c7104da5be8ed717d3/pics/rating_icons/ic_rating_m.png');
+		background-repeat:no-repeat;
+/* 		background-attachment:fixed; */
+		background-position:0px -75px;
+	}
+	#rating30{
+		width:100px;
+		height:15px;
+		background-image:url('https://img3.doubanio.com/f/shire/680a4bc4c384199245b080c7104da5be8ed717d3/pics/rating_icons/ic_rating_m.png');
+		background-repeat:no-repeat;
+/* 		background-attachment:fixed; */
+		background-position:0px -60px;
+	}
+	#rating35{
+		width:100px;
+		height:15px;
+		background-image:url('https://img3.doubanio.com/f/shire/680a4bc4c384199245b080c7104da5be8ed717d3/pics/rating_icons/ic_rating_m.png');
+		background-repeat:no-repeat;
+/* 		background-attachment:fixed; */
+		background-position:0px -45px;
+	}
+	#rating40{
+		width:100px;
+		height:15px;
+		background-image:url('https://img3.doubanio.com/f/shire/680a4bc4c384199245b080c7104da5be8ed717d3/pics/rating_icons/ic_rating_m.png');
+		background-repeat:no-repeat;
+/* 		background-attachment:fixed; */
+		background-position:0px -30px;
+	}
+	#rating45{
+		width:100px;
+		height:15px;
+		background-image:url('https://img3.doubanio.com/f/shire/680a4bc4c384199245b080c7104da5be8ed717d3/pics/rating_icons/ic_rating_m.png');
+		background-repeat:no-repeat;
+/* 		background-attachment:fixed; */
+		background-position:0px -15px;
+	}
+	#rating50{
+		width:100px;
+		height:15px;
+		background-image:url('https://img3.doubanio.com/f/shire/680a4bc4c384199245b080c7104da5be8ed717d3/pics/rating_icons/ic_rating_m.png');
+		background-repeat:no-repeat;
+/* 		background-attachment:fixed; */
+		background-position:0px 0px;
+	}
+	.stars{
+		float:right;
+		margin-top:20px;
+	}
+	.movie-about{
+		float:left;
+	}
+</style>
+</head>
+<body>
+<!--/main-header-->
+  <!--/banner-section-->
+	<div id="demo-1" class="banner-inner">
+	 <div class="banner-inner-dott">
+		<!--/header-w3l-->
+			   <div class="header-w3-agileits" id="home">
+			     <div class="inner-header-agile part2">
+				<nav class="navbar navbar-default">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<h1><a  href="{% url 'index' %}"><span>M</span>ovies <span>R</span>ecommend <span>S</span>ystem</a></h1>
+
+					</div>
+					<!-- navbar-header -->
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							
+
+					</div>
+					<div class="clearfix"> </div>
+				</nav>
+
+
+			</div>
+
+			   </div>
+		<!--//header-w3l-->
+		</div>
+    </div>
+  <!--/banner-section-->
+ <!--//main-header-->
+	         <!--/banner-bottom-->
+              {% if request.user.is_authenticated %}
+                  <div class="w3_agilits_banner_bootm">
+			     <div class="w3_agilits_inner_bottom">
+			            <div class="wthree_agile_login">
+						     <ul>
+
+									<li><a class="login" data-toggle="modal" data-target="#myModal4">欢迎您！{{ user.username}}</a></li>
+
+                                    <li><a href="{% url 'logout' %}" class="login"  >退出</a></li>
+                                 {% if request.user.username == 'admin' %}
+                                 {#   如果是admin则显示   #}
+                                    <a href="{% url 'reCal_spark' %}" class="login">使用spark重新计算电影相似度</a> 
+                                    <a href="{% url 'reCal_normal' %}" class="login">重新电影计算相似度</a> 
+
+<!--                                     <a href="#" class="login">使用spark重新计算电影相似度</a> 
+                                    <a href="#" class="login">重新电影计算相似度</a> 
+
+col-md-6-------------class-->
+                                 
+                                 {% endif %}
+								</ul>
+						</div>
+<!-- 						 <div class="col-md-6 wthree_share_agile">
+
+									<div class="single-agile-shar-buttons">
+									<ul>
+								<li>
+									<div class="fb-like" data-href="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+
+								</li>
+								<li>
+									<div class="fb-share-button" data-href="" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="">Share</a></div>
+								</li>
+
+							</ul>
+								</div>
+						</div> -->
+				</div>
+			</div>
+              {% else %}
+                  <div class="w3_agilits_banner_bootm">
+			     <div class="w3_agilits_inner_bottom">
+			            <div class="col-md-6 wthree_agile_login">
+						     <ul>
+									<li><a href="#" class="login"  data-toggle="modal" data-target="#myModal4">Login</a></li>
+                                 
+									<li><a href="#" class="login reg"  data-toggle="modal" data-target="#myModal5">Register</a></li>
+
+								</ul>
+						</div>
+						 <div class="col-md-6 wthree_share_agile">
+
+									<div class="single-agile-shar-buttons">
+									<ul>
+								<li>
+									<div class="fb-like" data-href="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+
+								</li>
+								<li>
+<!-- 									<div class="fb-share-button" data-href="" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="">Share</a></div> -->
+								</li>
+
+							</ul>
+								</div>
+						</div>
+				</div>
+			</div>
+
+
+			<!--//banner-bottom-->
+		     <!-- Modal1 -->
+					<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" >
+
+							<div class="modal-dialog">
+							<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4>Login</h4>
+										<div class="login-form">
+											<form action="{% url 'login' %}" method="post" autocomplete="off">
+                                                <input type='hidden' name='csrfmiddlewaretoken' value='mymQDzHWl2REXIfPMg2mJaLqDfaS1sD5' />
+												<input type="text" name="username" placeholder="用户名" required="">
+												<input type="password" name="password" placeholder="密码" required="">
+												<div class="tp">
+													<input type="submit" value="LOGIN NOW">
+												</div>
+												<div class="forgot-grid">
+												       <div class="log-check">
+														<label class="checkbox"><input type="checkbox" name="checkbox">Remember me</label>
+														</div>
+														<div class="forgot">
+															<a href="#" data-toggle="modal" data-target="#myModal2">Forgot Password?</a>
+														</div>
+														<div class="clearfix"></div>
+													</div>
+                                                 {% csrf_token %}
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				<!-- //Modal1 -->
+				  <!-- Modal1 -->
+					<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" >
+
+							<div class="modal-dialog">
+							<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4>Register</h4>
+										<div class="login-form">
+											<form action="{% url 'register' %}" method="post">
+											    <input type="text" name="username" placeholder="用户名" required="">
+												<input type="email" name="email" placeholder="邮箱" required="">
+												<input type="password" name="password" placeholder="密码" required="" id="password">
+												<input type="password" name="conform password" placeholder="确认密码" required="" onblur="compare()" id="confirm_password">
+<!-- 												<div class="signin-rit">
+														<span class="agree-checkbox">
+														<label class="checkbox"><input type="checkbox" name="checkbox">I agree to your <a class="w3layouts-t" href="#" target="_blank">Terms of Use</a> and <a class="w3layouts-t" href="#" target="_blank">Privacy Policy</a></label>
+													</span>
+												</div> -->
+												<div class="tp">
+													<input type="submit" value="REGISTER NOW" disabled class="submit_user">
+												</div>
+                                                {% csrf_token %}
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				<!-- //Modal1 -->
+ {% endif %}
+				<!-- breadcrumb -->
+				<div class="w3_breadcrumb">
+					<div class="breadcrumb-inner">
+						<ul>
+                            {% block bread %}
+							<li><a href="{% url 'index' %}">Home</a><i>//</i></li>
+							<li>Genre</li>
+                            {% endblock %}
+						</ul>
+					</div>
+				</div>
+			<!-- //breadcrumb -->
+
+              {% block content %}
+			<!--/content-inner-section-->
+				<div class="w3_content_agilleinfo_inner">
+					<div class="agile_featured_movies">
+
+					<!--/tv-movies-->
+					<h3 class="agile_w3_title hor-t">Comedy<span>Movies</span> </h3>
+					 <div class="wthree_agile-requested-movies tv-movies">
+										<div class="col-md-2 w3l-movie-gride-agile requested-movies">
+															<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/c1.jpg" title="Movies Pro" class="img-responsive" alt=" ">
+																<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+															</a>
+																<div class="mid-1 agileits_w3layouts_mid_1_home">
+																	<div class="w3l-movie-text">
+																		<h6><a href="single.html">Kevin Hart</a></h6>
+																	</div>
+																	<div class="mid-2 agile_mid_2_home">
+																		<p>2016</p>
+																		<div class="block-stars">
+																			<ul class="w3l-ratings">
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																			</ul>
+																		</div>
+																		<div class="clearfix"></div>
+																	</div>
+																</div>
+															<div class="ribben one">
+																<p>NEW</p>
+															</div>
+													</div>
+											<div class="col-md-2 w3l-movie-gride-agile requested-movies">
+												<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/c2.jpg" title="Movies Pro" class="img-responsive" alt=" ">
+													<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+												</a>
+												<div class="mid-1 agileits_w3layouts_mid_1_home">
+													<div class="w3l-movie-text">
+														<h6><a href="single.html">Zootopia</a></h6>
+													</div>
+													<div class="mid-2 agile_mid_2_home">
+														<p>2016</p>
+														<div class="block-stars">
+															<ul class="w3l-ratings">
+																<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+															</ul>
+														</div>
+														<div class="clearfix"></div>
+													</div>
+												</div>
+											<div class="ribben one">
+													<p>NEW</p>
+												</div>
+											</div>
+											<div class="col-md-2 w3l-movie-gride-agile requested-movies">
+												<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/c3.jpg" title="Movies Pro" class="img-responsive" alt=" ">
+													<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+												</a>
+												<div class="mid-1 agileits_w3layouts_mid_1_home">
+													<div class="w3l-movie-text">
+														<h6><a href="single.html">Dirty Grandpa</a></h6>
+													</div>
+													<div class="mid-2 agile_mid_2_home">
+														<p>2016</p>
+														<div class="block-stars">
+															<ul class="w3l-ratings">
+																<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+															</ul>
+														</div>
+														<div class="clearfix"></div>
+													</div>
+												</div>
+												<div class="ribben one">
+													<p>NEW</p>
+												</div>
+											</div>
+											<div class="col-md-2 w3l-movie-gride-agile requested-movies">
+												<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/c4.jpg" title="Movies Pro" class="img-responsive" alt=" ">
+													<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+												</a>
+												<div class="mid-1 agileits_w3layouts_mid_1_home">
+													<div class="w3l-movie-text">
+														<h6><a href="single.html">Neighbors 2 </a></h6>
+													</div>
+													<div class="mid-2 agile_mid_2_home">
+														<p>2016</p>
+														<div class="block-stars">
+															<ul class="w3l-ratings">
+																<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+															</ul>
+														</div>
+														<div class="clearfix"></div>
+													</div>
+												</div>
+											<div class="ribben one">
+													<p>NEW</p>
+												</div>
+											</div>
+											<div class="col-md-2 w3l-movie-gride-agile requested-movies">
+												<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/c5.jpg" title="Movies Pro" class="img-responsive" alt=" ">
+													<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+												</a>
+												<div class="mid-1 agileits_w3layouts_mid_1_home">
+													<div class="w3l-movie-text">
+														<h6><a href="single.html">Finding Dory</a></h6>
+													</div>
+													<div class="mid-2 agile_mid_2_home">
+														<p>2016</p>
+														<div class="block-stars">
+															<ul class="w3l-ratings">
+																<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+															</ul>
+														</div>
+														<div class="clearfix"></div>
+													</div>
+												</div>
+												<div class="ribben one">
+													<p>NEW</p>
+												</div>
+											</div>
+											<div class="col-md-2 w3l-movie-gride-agile requested-movies">
+															<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/c6.jpg" title="Movies Pro" class="img-responsive" alt=" ">
+																<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+															</a>
+																<div class="mid-1 agileits_w3layouts_mid_1_home">
+																	<div class="w3l-movie-text">
+																		<h6><a href="single.html">Suicide Squad</a></h6>
+																	</div>
+																	<div class="mid-2 agile_mid_2_home">
+																		<p>2016</p>
+																		<div class="block-stars">
+																			<ul class="w3l-ratings">
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																			</ul>
+																		</div>
+																		<div class="clearfix"></div>
+																	</div>
+																</div>
+															<div class="ribben one">
+																<p>NEW</p>
+															</div>
+													</div>
+											<div class="col-md-2 w3l-movie-gride-agile requested-movies">
+												<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/c7.jpg" title="Movies Pro" class="img-responsive" alt=" ">
+													<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+												</a>
+												<div class="mid-1 agileits_w3layouts_mid_1_home">
+													<div class="w3l-movie-text">
+														<h6><a href="single.html">Zoolander 2</a></h6>
+													</div>
+													<div class="mid-2 agile_mid_2_home">
+														<p>2016</p>
+														<div class="block-stars">
+															<ul class="w3l-ratings">
+																<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+															</ul>
+														</div>
+														<div class="clearfix"></div>
+													</div>
+												</div>
+											<div class="ribben one">
+													<p>NEW</p>
+												</div>
+											</div>
+											<div class="col-md-2 w3l-movie-gride-agile requested-movies">
+												<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/c8.jpg" title="Movies Pro" class="img-responsive" alt=" ">
+													<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+												</a>
+												<div class="mid-1 agileits_w3layouts_mid_1_home">
+													<div class="w3l-movie-text">
+														<h6><a href="single.html">Ride Along 2</a></h6>
+													</div>
+													<div class="mid-2 agile_mid_2_home">
+														<p>2016</p>
+														<div class="block-stars">
+															<ul class="w3l-ratings">
+																<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+															</ul>
+														</div>
+														<div class="clearfix"></div>
+													</div>
+												</div>
+												<div class="ribben one">
+													<p>NEW</p>
+												</div>
+											</div>
+											<div class="col-md-2 w3l-movie-gride-agile requested-movies">
+												<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/c9.jpg" title="Movies Pro" class="img-responsive" alt=" ">
+													<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+												</a>
+												<div class="mid-1 agileits_w3layouts_mid_1_home">
+													<div class="w3l-movie-text">
+														<h6><a href="single.html">Hail, Caesar! </a></h6>
+													</div>
+													<div class="mid-2 agile_mid_2_home">
+														<p>2016</p>
+														<div class="block-stars">
+															<ul class="w3l-ratings">
+																<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+															</ul>
+														</div>
+														<div class="clearfix"></div>
+													</div>
+												</div>
+											<div class="ribben one">
+													<p>NEW</p>
+												</div>
+											</div>
+											<div class="col-md-2 w3l-movie-gride-agile requested-movies">
+												<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/c10.jpg" title="Movies Pro" class="img-responsive" alt=" ">
+													<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+												</a>
+												<div class="mid-1 agileits_w3layouts_mid_1_home">
+													<div class="w3l-movie-text">
+														<h6><a href="single.html">The Nice Guys</a></h6>
+													</div>
+													<div class="mid-2 agile_mid_2_home">
+														<p>2016</p>
+														<div class="block-stars">
+															<ul class="w3l-ratings">
+																<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																				<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+															</ul>
+														</div>
+														<div class="clearfix"></div>
+													</div>
+												</div>
+												<div class="ribben one">
+													<p>NEW</p>
+												</div>
+											</div>
+												<div class="clearfix"></div>
+						</div>
+			<!--//tv-movies-->
+
+					  <div class="blog-pagenat-wthree">
+								<ul>
+									<li><a class="frist" href="#">Prev</a></li>
+									<li><a href="#">1</a></li>
+									<li><a href="#">2</a></li>
+									<li><a href="#">3</a></li>
+
+									<li><a class="last" href="#">Next</a></li>
+								</ul>
+
+								<!--//requested-movies-->
+				  <h3 class="agile_w3_title"> Top Movies <span>Review</span></h3>
+			<!--/movies-->
+			<div class="w3_agile_latest_movies">
+
+				<div id="owl-demo" class="owl-carousel owl-theme">
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-slider ">
+							<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/m5.jpg" title="Movies Pro" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Storks	</a></h6>
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben one">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-slider ">
+							<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/m6.jpg" title="Movies Pro" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Hopeless</a></h6>
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben one">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-slider ">
+							<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/m7.jpg" title="Movies Pro" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Mechanic</a></h6>
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben one">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-slider ">
+							<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/m8.jpg" title="Movies Pro" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Timeless</a></h6>
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben one">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-slider ">
+							<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/m3.jpg" title="Movies Pro" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Deadpool</a></h6>
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben one">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-slider ">
+							<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/m11.jpg" title="Movies Pro" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Warcraft</a></h6>
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben one">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-slider ">
+							<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/m14.jpg" title="Movies Pro" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Rambo 4</a></h6>
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben one">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-slider ">
+							<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/m13.jpg" title="Movies Pro" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Ghostbuster</a></h6>
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben one">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-slider ">
+							<a href="single.html" class="hvr-sweep-to-bottom"><img src="images/m15.jpg" title="Movies Pro" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">RoboCop</a></h6>
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben one">
+								<p>NEW</p>
+							</div>
+							</div>
+						</div>
+					   </div>
+				    </div>
+				<!--//movies-->
+					</div>
+				</div>
+			</div>
+			<!--//content-inner-section-->
+             {% endblock %}
+	<!--/footer-bottom-->
+		<div class="contact-w3ls" id="contact">
+			<div class="footer-w3lagile-inner">
+				<h2>GROUP 08</h2>
+				<p class="para">小组成员：XiongGM CaoH CuiPZ GongRY LinS LiuYL MeiCH MengSM TongQ WeiSG </p>
+				<div class="footer-contact">
+				</div>
+					<div class="footer-grids w3-agileits">
+								</div>
+
+								<div class="clearfix"> </div>
+							</div>
+							<div class="footer-grid1">
+
+
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+
+			<div class="w3agile_footer_copy">
+				    <p>Copyright &copy; 2019.Group 08 All rights reserved.</p>
+			</div>
+		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+
+<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+	<!-- Dropdown-Menu-JavaScript -->
+			<script>
+				$(document).ready(function(){
+					$(".dropdown").hover(
+						function() {
+							$('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+							$(this).toggleClass('open');
+						},
+						function() {
+							$('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+							$(this).toggleClass('open');
+						}
+					);
+				});
+			</script>
+		<!-- //Dropdown-Menu-JavaScript -->
+		<!-- search-jQuery -->
+				<script src="{% static 'js/main.js' %}"></script>
+			<!-- //search-jQuery -->
+
+			<script src="{% static 'js/simplePlayer.js' %}"></script>
+			<script>
+				$("document").ready(function() {
+					$("#video").simplePlayer();
+				});
+			</script>
+			<script>
+				$("document").ready(function() {
+					$("#video1").simplePlayer();
+				});
+			</script>
+			<script>
+				$("document").ready(function() {
+					$("#video2").simplePlayer();
+				});
+			</script>
+				<script>
+				$("document").ready(function() {
+					$("#video3").simplePlayer();
+				});
+			</script>
+			<script>
+				$("document").ready(function() {
+					$("#video4").simplePlayer();
+				});
+			</script>
+			<script>
+				$("document").ready(function() {
+					$("#video5").simplePlayer();
+				});
+			</script>
+			<script>
+				$("document").ready(function() {
+					$("#video6").simplePlayer();
+				});
+			</script>
+
+			<!-- pop-up-box -->
+		<script src="{% static 'js/jquery.magnific-popup.js' %}" type="text/javascript"></script>
+	<!--//pop-up-box -->
+
+			<div id="small-dialog1" class="mfp-hide">
+		<iframe src=""></iframe>
+	</div>
+	<div id="small-dialog2" class="mfp-hide">
+		<iframe src=""></iframe>
+	</div>
+	<script>
+		$(document).ready(function() {
+		$('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
+			type: 'inline',
+			fixedContentPos: false,
+			fixedBgPos: true,
+			overflowY: 'auto',
+			closeBtnInside: true,
+			preloader: false,
+			midClick: true,
+			removalDelay: 300,
+			mainClass: 'my-mfp-zoom-in'
+		});
+
+		});
+	</script>
+<script src="{% static 'js/easy-responsive-tabs.js' %}"></script>
+<script>
+$(document).ready(function () {
+$('#horizontalTab').easyResponsiveTabs({
+type: 'default', //Types: default, vertical, accordion
+width: 'auto', //auto or any width like 600px
+fit: true,   // 100% fit in a container
+closed: 'accordion', // Start closed if in accordion view
+activate: function(event) { // Callback function if tab is switched
+var $tab = $(this);
+var $info = $('#tabInfo');
+var $name = $('span', $info);
+$name.text($tab.text());
+$info.show();
+}
+});
+$('#verticalTab').easyResponsiveTabs({
+type: 'vertical',
+width: 'auto',
+fit: true
+});
+});
+</script>
+<link href="{% static 'css/owl.carousel.css' %}" rel="stylesheet" type="text/css" media="all">
+<script src="{% static 'js/owl.carousel.js' %}"></script>
+<script>
+	$(document).ready(function() {
+		$("#owl-demo").owlCarousel({
+
+		 autoPlay: 3000, //Set AutoPlay to 3 seconds
+		  autoPlay : true,
+		   navigation :true,
+
+		  items : 5,
+		  itemsDesktop : [640,4],
+		  itemsDesktopSmall : [414,3]
+
+		});
+
+	});
+</script>
+
+<!--/script-->
+<script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.min.js'%}"></script>
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+				});
+			});
+</script>
+ <script type="text/javascript">
+						$(document).ready(function() {
+							/*
+							var defaults = {
+					  			containerID: 'toTop', // fading element id
+								containerHoverID: 'toTopHover', // fading element hover id
+								scrollSpeed: 1200,
+								easingType: 'linear'
+					 		};
+							*/
+
+							$().UItoTop({ easingType: 'easeOutQuart' });
+
+						});
+					</script>
+<!--end-smooth-scrolling-->
+	<script src="{% static 'js/bootstrap.js' %}"></script>
+<script type="text/javascript">
+    //添加评论
+    $('#js-pl-submit').on('click', function(){
+        var comments = $("#js-pl-textarea").val()
+        if(comments == ""){
+            alert("评论不能为空")
+            return
+        }
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url:"{% url 'addcomments' %}",
+            data:{'movie_id':{{ movieinfo.id }}, 'comments':comments, 'star':rating_star},
+            async: true,
+            beforeSend:function(xhr, settings){
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+            },
+            success: function(data) {
+                if(data.status == 'fail'){
+                    if(data.msg == '用户未登录'){
+                        window.location.href="#";
+                    }else{
+                        alert(data.msg)
+                    }
+
+                }else if(data.status == 'success'){
+                    window.location.reload();//刷新当前页面.
+                }
+            },
+        });
+    });
+
+</script>
+
+
+
+</body>
+</html>
