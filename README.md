@@ -14,6 +14,7 @@
 - [安装指南](#1)
 - [数据导入](#2)
 - [算法说明](#3)
+- [预览](#4)
 
 ## <p id=1>安装指南
 
@@ -144,3 +145,10 @@ Quit the server with CONTROL-C.
 本项目计算两张电影相似度表，分别是`movies_moviesimilar`和`movies_moviesimilar_fromspark`，对应两张推荐表`operation_top5recommend`和`operation_top5recommend_2`。第二张相似表由spark计算得出，详情可见['calculate_similarity_mch.ipynb'](./calculate_similarity_mch.ipynb)。spark分布式的安装可以参考[Spark全分布式安装](https://github.com/JimXiongGM/BigDataProject/blob/master/Documentations/Spark_distribute.md)
 
 
+## <p id=4>预览
+
+有时可以访问：http://www.playbigdata.top:8000/
+
+效果预览：
+
+![web预览](./index_save.png)
